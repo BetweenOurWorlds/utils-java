@@ -1,42 +1,73 @@
 @prefix fno: <http://semweb.datasciencelab.be/ns/function#> .
 @prefix lib: <http://example.com/library#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-@prefix : <http://example.com/idlab/functions/string/> .
-@prefix dyversify: <http://example.com/idlab/functions/dyversify/> .
+@prefix idlab-fn: <http://example.com/idlab/function/> .
+@prefix anime: <https://betweenourworlds.org/function/> .
 
-###########################
-### Dyversify functions ###
-###########################
-
-dyversify:generateIRI a fno:Function ;
-  fno:name "generate IRI" ;
-  rdfs:label "generate IRI" ;
-  dcterms:description "Returns the IRI for an element (removes unwanted characters and corrects capitalization)" ;
-  fno:expects ( dyversify:valueParam dyversify:valueParam2 ) ;
-  fno:output ( dyversify:stringOut ) ;
+anime:getClasses a fno:Function ;
+  fno:name "get classes" ;
+  rdfs:label "get classes" ;
+  dcterms:description "Returns the classes based on the given value" ;
+  fno:expects ( idlab-fn:_str ) ;
+  fno:returns ( idlab-fn:_list ) ;
   lib:providedBy [
-    lib:localLibrary "dyversify-functions";
+    lib:localLibrary "utils.jar";
     lib:class "Utils";
-    lib:method "generateIRI"
+    lib:method "getClasses"
   ].
 
-dyversify:valueParam a fno:Parameter ;
-  fno:name "input value" ;
-  rdfs:label "input value" ;
-  fno:type xsd:string ;
-  fno:predicate dyversify:str .
+anime:getStreamAgent a fno:Function ;
+  fno:name "get stream agent" ;
+  rdfs:label "get stream agent" ;
+  dcterms:description "Returns the stream agent IRI based on the name" ;
+  fno:expects ( idlab-fn:_str ) ;
+  fno:returns ( idlab-fn:_stringOut ) ;
+  lib:providedBy [
+    lib:localLibrary "utils.jar";
+    lib:class "Utils";
+    lib:method "getStreamAgent"
+  ].
 
-dyversify:valueParam2 a fno:Parameter ;
-  fno:name "input value 2" ;
-  rdfs:label "input value 2" ;
-  fno:type xsd:string ;
-  fno:predicate dyversify:prefix .
+anime:scaleRating a fno:Function ;
+  fno:name "scale rating" ;
+  rdfs:label "scale rating" ;
+  dcterms:description "Returns the scaled rating" ;
+  fno:expects ( idlab-fn:_str ) ;
+  fno:returns ( idlab-fn:_stringOut ) ;
+  lib:providedBy [
+    lib:localLibrary "utils.jar";
+    lib:class "Utils";
+    lib:method "scaleRating"
+  ].
 
-dyversify:stringOut a fno:Output ;
+anime:getActionStatus a fno:Function ;
+  fno:name "get action status" ;
+  rdfs:label "get action status" ;
+  dcterms:description "Returns the Action Status given a Kitsu status" ;
+  fno:expects ( idlab-fn:_str ) ;
+  fno:returns ( idlab-fn:_stringOut ) ;
+  lib:providedBy [
+    lib:localLibrary "utils.jar";
+    lib:class "Utils";
+    lib:method "getActionStatus"
+  ].
+
+idlab-fn:_str a fno:Parameter ;
+  fno:name "input string" ;
+  rdfs:label "input string" ;
+  fno:type xsd:string ;
+  fno:predicate idlab-fn:str .
+
+idlab-fn:_list a fno:Parameter ;
+  fno:name "list" ;
+  rdfs:label "list" ;
+  fno:type rdf:List ;
+  fno:predicate idlab-fn:list .
+
+idlab-fn:_stringOut a fno:Output ;
   fno:name "output string" ;
   rdfs:label "output string" ;
   fno:type xsd:string ;
-  fno:predicate dyversify:stringOutput .
+  fno:predicate idlab-fn:stringOut .
